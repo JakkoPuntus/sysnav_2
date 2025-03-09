@@ -101,7 +101,7 @@ def draw_player(surface, x, y, orientation, sprite):
 
     # Рассчитываем угол на основе ориентации
     angle = angle_map.get(orientation, 0)  # по умолчанию 0° (вправо)
-    print(orientation, real, angle)
+
     # Поворот спрайта
     rotated_sprite = pygame.transform.rotate(sprite, angle)
     
