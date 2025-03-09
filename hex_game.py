@@ -61,16 +61,6 @@ def hex_center(i, j):
     return int(x + HEX_RADIUS), int(y + HEX_RADIUS)
 
 
-def hex_next_cell(horizontal, vertical, position):
-    """
-    horizontal = [-1, 1] - движение влево или вправо
-    vertical : int - движение вверх на число клеток
-    
-    например:
-    horizontal = 1, vertical = 3 — смещение на 3 клетки вправо-вверх
-    """
-    if position[0] % 2 == 0:
-        ...
 
 # Функция для рисования шестиугольника
 def draw_hexagon(surface, x, y, color, text):
