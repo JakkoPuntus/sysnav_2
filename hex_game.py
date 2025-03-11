@@ -175,10 +175,6 @@ def handle_input():
                 else:  # Просто влево
                     move_direction = (0, -1)
                     absolute_orientation = 3
-            elif axis_y < -threshold:  # Вверх (без смещения влево/вправо)
-                move_direction = (-1, 0)  # Зависит от вашей логики
-            elif axis_y > threshold:  # Вниз (без смещения влево/вправо)
-                move_direction = (1, 0)  # Зависит от вашей логики
 
         joystick_moved = True
         
@@ -190,7 +186,7 @@ def handle_input():
 
     
     if move_direction:
-        new_real = (real[0] + move_direction[0], real[1] + move_direction[1])
+        new_real = ((real[0] + move_direction[0]) % len(world), (real[1] + move_direction[1]) % len(world[real[0]]))
         orientation = move_direction
         if world[new_real[0]][new_real[1]] != 'wall':
             real = new_real

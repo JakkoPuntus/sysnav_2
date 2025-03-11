@@ -1,6 +1,9 @@
 import sys
+from image_to_map import image_to_map
 
 distribution_type = sys.argv[1] if len(sys.argv) > 1 else "uniform"
+map_location = sys.argv[2] if len(sys.argv) > 2 else 'map.png'
+
 from hex import ABSOLUTE_DIRECTIONS, hex_next_diag_cell
 
 def add_wall_around_world(world):
@@ -24,29 +27,12 @@ def add_wall_around_world(world):
 
     return world
 
-world = [
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'bush', 'bush'],
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'wall', 'wall', 'wall', 'empty', 'empty', 'bush', 'bush'],
-['empty', 'bush', 'bush', 'bush', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'bush', 'bush'],
-['empty', 'bush', 'bush', 'bush', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'bush', 'bush'],
-['empty', 'bush', 'bush', 'bush', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'bush', 'bush'],
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'empty', 'bush', 'bush'],
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['wall', 'wall', 'wall', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['bush', 'bush', 'bush', 'bush', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['bush', 'bush', 'bush', 'bush', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
-['bush', 'bush', 'bush', 'bush', 'empty', 'empty', 'empty', 'empty', 'empty', 'wall', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty']
-]
+world = image_to_map(map_location)
 
 height = len(world)
 width = len(world[0])
 
-world = add_wall_around_world(world)
+# world = add_wall_around_world(world)
 
 
 def initialize_distribution(distribution_type):
@@ -177,15 +163,15 @@ def sense_bush(p, Z):
 
 def move(p, U):
     p_new = [[0.0 for _ in range(len(p[0]))] for _ in range(len(p))]
-    
+    print(U)
     for i in range(len(p)):
         for j in range(len(p[i])):
             if world[i][j] == 'wall':
                 continue
             
             s = pExact * p[(i - U[0]) % len(p)][(j - U[1]) % len(p[i])]
-            s += pOvershoot * p[(i - U[0] - 1) % len(p)][(j - U[1] - 1) % len(p[i])]
-            s += pUndershoot * p[(i - U[0] + 1) % len(p)][(j - U[1] + 1) % len(p[i])]
+            s += pOvershoot * p[(i - U[0]*2) % len(p)][(j - U[1]*2) % len(p[i])]
+            s += pUndershoot * p[(i + U[0]*2) % len(p)][(j + U[1]*2) % len(p[i])]
             p_new[i][j] = s
     
     return normalize_p(p_new)
