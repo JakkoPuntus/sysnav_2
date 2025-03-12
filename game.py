@@ -25,6 +25,10 @@ real = (1, 1)
 prediction = argmax(p)
 orientation = (0, 0)
 
+
+while (world[real[0]][real[1]] == 'wall'):
+    real = (real[0]+1, real[1]+1)
+
 # Соответствие направлений и углов поворота
 ORIENTATION_ANGLE = {
     (-1, 0): 90,    # Вверх

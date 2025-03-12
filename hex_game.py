@@ -30,6 +30,9 @@ prediction = argmax(p)
 orientation = (0, 1)
 absolute_orientation = 0
 
+while (world[real[0]][real[1]] == 'wall'):
+    real = (real[0]+1, real[1]+1)
+
 # Флаги для предотвращения многократного срабатывания
 key_pressed = False
 joystick_moved = False
