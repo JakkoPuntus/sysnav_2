@@ -32,6 +32,7 @@ def image_to_map(image_path):
 image_path = "map.png"
 world = image_to_map(image_path)
 
-# Выводим карту в консоль
-for row in world:
-    print(row)
+if __name__ == "__main__":
+    # Выводим карту в консоль
+    for row in world:
+        print(row)

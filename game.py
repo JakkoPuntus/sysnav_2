@@ -79,8 +79,18 @@ while running:
                     prediction = argmax(p)
             
             elif event.key == pygame.K_c:  # Лидар
-                p = sense_lidar(p, world[real[0]][real[1]] if random.random() < 0.8 else opposite(world[real[0]][real[1]], 'lidar'), orientation)
+                forward_pos = [real[0] + orientation[0], real[1] + orientation[1]]
+                forward2_pos = [real[0] + orientation[0]*2, real[1] + orientation[1]*2]
+                
+                if world[forward_pos[0]][forward_pos[1]] == 'wall' and random.random() < 0.8:
+                    p = sense_lidar(p, 'wall', orientation)
+                elif world[forward2_pos[0]][forward2_pos[1]] == 'wall' and random.random() < 0.5:
+                    p = sense_lidar(p, 'wall', orientation)
+                else:
+                    p = sense_lidar(p, 'empty', orientation)
+                
                 prediction = argmax(p)
+                print(real, orientation)
             
             elif event.key == pygame.K_b:  # Датчик растительности
                 p = sense_bush(p, world[real[0]][real[1]] if random.random() < 0.7 else opposite(world[real[0]][real[1]], 'bush'))

@@ -205,7 +205,7 @@ def sense_lidar():
     horizontal, vertical = ABSOLUTE_DIRECTIONS[absolute_orientation]
     if vertical != 0:
         forward_pos = hex_next_diag_cell(horizontal, vertical, real)
-        forward2_pos = hex_next_diag_cell(horizontal, vertical, real)
+        forward2_pos = hex_next_diag_cell(horizontal, vertical+1, real)
     else:
         forward_pos = [real[0], real[1] + horizontal]
         forward2_pos = [real[0], real[1] + horizontal*2]

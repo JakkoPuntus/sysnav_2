@@ -92,6 +92,10 @@ def sense_lidar(p, Z, orientation):
             # Проверяем соответствие измерения лидара
             hitOneBlock = (Z == world[one_block_i][one_block_j])
             hitTwoBlocks = (Z == world[two_block_i][two_block_j])
+            
+            if i == 1 and j == 6:
+                print(orientation, Z, hitOneBlock, hitTwoBlocks, one_block_i, one_block_j)
+                
 
             # Обновляем вероятность
             if hitOneBlock:
@@ -121,7 +125,7 @@ def sense_lidar_hex(p, Z, orientation):
             horizontal, vertical = ABSOLUTE_DIRECTIONS[orientation]
             if vertical != 0:
                 forward_pos = hex_next_diag_cell(horizontal, vertical, (i, j))
-                forward2_pos = hex_next_diag_cell(horizontal, vertical, (i, j))
+                forward2_pos = hex_next_diag_cell(horizontal, vertical+1, (i, j))
             else:
                 forward_pos = [i, j + horizontal]
                 forward2_pos = [i, j + horizontal*2]
