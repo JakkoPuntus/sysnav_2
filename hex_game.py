@@ -187,6 +187,8 @@ def handle_input():
     
     if move_direction:
         new_real = ((real[0] + move_direction[0]) % len(world), (real[1] + move_direction[1]) % len(world[real[0]]))
+        if (real[0] + move_direction[0]) > len(world) and len(world) % 2 == 1:
+            new_real[1] += 1
         orientation = move_direction
         if world[new_real[0]][new_real[1]] != 'wall':
             real = new_real
