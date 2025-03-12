@@ -79,8 +79,8 @@ while running:
                     prediction = argmax(p)
             
             elif event.key == pygame.K_c:  # Лидар
-                forward_pos = [real[0] + orientation[0], real[1] + orientation[1]]
-                forward2_pos = [real[0] + orientation[0]*2, real[1] + orientation[1]*2]
+                forward_pos = [(real[0] + orientation[0]) % len(world), (real[1] + orientation[1]) % len(world[0])]
+                forward2_pos = [(real[0] + orientation[0]*2) % len(world), (real[1] + orientation[1]*2) % len(world[0])]
                 
                 if world[forward_pos[0]][forward_pos[1]] == 'wall' and random.random() < 0.8:
                     p = sense_lidar(p, 'wall', orientation)

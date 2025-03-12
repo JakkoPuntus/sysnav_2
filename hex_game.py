@@ -210,9 +210,9 @@ def sense_lidar():
         forward_pos = [real[0], real[1] + horizontal]
         forward2_pos = [real[0], real[1] + horizontal*2]
                 
-    if world[forward_pos[0]][forward_pos[1]] == 'wall' and random.random() < 0.8:
+    if world[forward_pos[0]% len(world)][forward_pos[1]  % (len[world[0]])] == 'wall' and random.random() < 0.8:
         p = sense_lidar_hex(p, 'wall', absolute_orientation)
-    elif world[forward2_pos[0]][forward2_pos[1]] == 'wall' and random.random() < 0.5:
+    elif world[forward2_pos[0] % len(world)][forward2_pos[1] % (len[world[0]])] == 'wall' and random.random() < 0.5:
         p = sense_lidar_hex(p, 'wall', absolute_orientation)
     else:
         p = sense_lidar_hex(p, 'empty', absolute_orientation)
